@@ -2,6 +2,7 @@ import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import appConfig from './config/app.config';
 import { SocketsModule } from './sockets/sockets.module';
+import { HandlerModule } from './handler/handler.module';
 
 @Module({
   imports: [
@@ -11,6 +12,7 @@ import { SocketsModule } from './sockets/sockets.module';
       envFilePath: ['.env'],
     }),
     SocketsModule,
+    HandlerModule,
   ],
   providers: [],
 })
