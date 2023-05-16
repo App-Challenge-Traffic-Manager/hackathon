@@ -6,28 +6,62 @@ generator client {
 }
 
 datasource db {
-  provider = "sqlite"
+  provider = "postgresql"
   url      = env("DATABASE_URL")
 }
 
 model Device {
-  id    String        @id @default(uuid())
-  name  String
-  token String        @unique
-  apps  Application[]
+  id        String        @id @default(uuid())
+  name      String?
+  token     String        @unique
+  apps      Application[]
+  createdAt DateTime      @default(now())
+  updatedAt DateTime      @updatedAt
 }
 
 model Application {
-  id              String   @id @default(uuid())
-  name            String
-  upload          String
-  download        String
-  started_at      DateTime
-  last_updated_at DateTime
+  id             String @id @default(uuid())
+  name           String
+  upload         String
+  download       String
+  upload_speed   Float
+  download_speed Float
 
-  last_upload   String?
-  last_download String?
+  started_at      String
+  last_updated_at String
 
   Device   Device? @relation(fields: [deviceId], references: [id])
   deviceId String?
+
+  protocol_traffics ProtocolTraffic[]
+  host_traffics     HostTraffic[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model ProtocolTraffic {
+  id       String @id @default(uuid())
+  protocol String
+  download String
+  upload   String
+
+  Application   Application? @relation(fields: [applicationId], references: [id])
+  applicationId String?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model HostTraffic {
+  id       String @id @default(uuid())
+  host     String
+  download String
+  upload   String
+
+  Application   Application? @relation(fields: [applicationId], references: [id])
+  applicationId String?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
