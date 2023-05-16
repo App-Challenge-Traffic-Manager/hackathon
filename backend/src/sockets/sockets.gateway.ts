@@ -6,12 +6,17 @@ import {
   SubscribeMessage,
   WebSocketGateway,
   WebSocketServer,
+  ConnectedSocket,
 } from '@nestjs/websockets';
 import { Server, Socket } from 'socket.io';
 import { SocketService } from './sockets.service';
 import { OnModuleDestroy, Logger } from '@nestjs/common';
+import { HandlerService } from 'src/handler/handler.service';
+import { ApplicationData } from 'src/handler/interfaces/data.interface';
 
-@WebSocketGateway()
+@WebSocketGateway({
+  cors: true,
+})
 export class SocketsGateway
   implements
     OnGatewayInit,
@@ -22,6 +27,7 @@ export class SocketsGateway
   constructor(
     private socketService: SocketService,
     private readonly logger: Logger,
+    private readonly handlerService: HandlerService,
   ) {}
 
   @WebSocketServer()
@@ -35,16 +41,20 @@ export class SocketsGateway
     this.server.close();
   }
 
-  @SubscribeMessage('send_message')
-  listenForMessages(@MessageBody() data: string) {
-    this.server.sockets.emit('receive_message', data);
+  @SubscribeMessage('receive-data')
+  handleReceiveData(
+    @MessageBody() data: ApplicationData[],
+    @ConnectedSocket() client: Socket,
+  ) {
+    const token = client.handshake.query?.token?.toString();
+    this.handlerService.handleData(token, data);
   }
 
   handleConnection(client: Socket) {
-    this.logger.log(`Client connected: ${client.id}`);
-    // get query params from client
-    // const { room } = client.handshake.query;
-    console.log(client.handshake.query);
+    this.logger.log(`Client connected: ${client.handshake.query.token}`);
+    this.handlerService.createDeviceIfNotExists(
+      client.handshake.query?.token?.toString(),
+    );
   }
 
   handleDisconnect(client: Socket) {
