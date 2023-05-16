@@ -817,6 +817,11 @@
     "consola" "^2.15.0"
     "node-fetch" "^2.6.1"
 
+"@prisma/engines@4.14.0":
+  "integrity" "sha512-PDNlhP/1vyTgmNyiucGqGCdXIp7HIkkvKO50si3y3PcceeHvqtiKPaH1iJdz63jCWMVMbj2MElSxXPOeBvEVIQ=="
+  "resolved" "https://registry.npmjs.org/@prisma/engines/-/engines-4.14.0.tgz"
+  "version" "4.14.0"
+
 "@sinclair/typebox@^0.24.1":
   "integrity" "sha512-1P1OROm/rdubP5aFDSZQILU0vrLCJ4fvHt6EoqHEM+2D/G5MK3bIaymUKLit8Js9gbns5UyJnkP/TZROLw4tUA=="
   "resolved" "https://registry.npmjs.org/@sinclair/typebox/-/typebox-0.24.51.tgz"
@@ -3926,6 +3931,13 @@
     "ansi-regex" "^5.0.1"
     "ansi-styles" "^5.0.0"
     "react-is" "^18.0.0"
+
+"prisma@^4.14.0":
+  "integrity" "sha512-+5dMl1uxMQb4RepndY6AwR9xi1cDcaGFICu+ws6/Nmgt93mFPNj8tYxSfTdmfg+rkNrUId9rk/Ac2vTgLe/oXA=="
+  "resolved" "https://registry.npmjs.org/prisma/-/prisma-4.14.0.tgz"
+  "version" "4.14.0"
+  dependencies:
+    "@prisma/engines" "4.14.0"
 
 "process-nextick-args@~2.0.0":
   "integrity" "sha512-3ouUOpQhtgrbOa17J7+uxOTpITYWaGP7/AhoR3+A+/1e9skrzelGi/dXzEYyvbxubEF6Wn2ypscTKiKJFFn1ag=="
