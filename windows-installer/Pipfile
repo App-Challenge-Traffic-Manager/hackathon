@@ -4,7 +4,7 @@ verify_ssl = true
 name = "pypi"
 
 [packages]
-python-socketio = {extras = ["client"], version = "==5.8.0"}
+python-socketio = {extras = ["asyncio_client"], version = "==5.8.0"}
 scapy = "==2.5.0"
 psutil = "==5.9.4"
 
