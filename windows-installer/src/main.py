@@ -92,8 +92,8 @@ class Process:
         "last_time_update": "{self.last_time_updated}",
         "upload": "{get_size(self.upload)}",
         "download": "{get_size(self.download)}",
-        "upload_speed": "{get_size(self.upload_speed)}/s",
-        "download_speed": "{get_size(self.download_speed)}/s",
+        "upload_speed": {self.upload_speed},
+        "download_speed": {self.download_speed},
         '''
         json_data += ''' "protocol_traffic": [ '''
         for protocol, traffic in self.protocol_traffic.items():
@@ -256,9 +256,9 @@ def json_serialize_traffic_data():
     process_list_data += ''']'''
 
     json_object = json.loads(process_list_data)
-    json_formatted_str = json.dumps(json_object, indent=4)
+    # json_formatted_str = json.dumps(json_object, indent=4)
 
-    return json_formatted_str
+    return json_object
 
 
 def update_process(pid, new_time: str, upload: float, download: float, protocol: dict, host: dict) -> bool:
