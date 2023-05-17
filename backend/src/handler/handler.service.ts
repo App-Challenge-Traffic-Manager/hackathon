@@ -3,9 +3,6 @@ import { Device } from '@prisma/client';
 import { PrismaService } from 'src/prisma.service';
 import { ApplicationData } from './interfaces/data.interface';
 
-// create a partial type for the device
-type PartialDevice = Partial<Device>;
-
 @Injectable()
 export class HandlerService {
   constructor(
@@ -32,43 +29,6 @@ export class HandlerService {
       });
 
     return device;
-  }
-
-  async updateDeviceById(id: string, data: PartialDevice): Promise<Device> {
-    return await this.prisma.device.update({
-      where: {
-        id,
-      },
-      data,
-    });
-  }
-
-  async updateDeviceByToken(
-    token: string,
-    data: PartialDevice,
-  ): Promise<Device> {
-    return await this.prisma.device.update({
-      where: {
-        token,
-      },
-      data,
-    });
-  }
-
-  async getDeviceById(id: string): Promise<Device> {
-    return await this.prisma.device.findUnique({
-      where: {
-        id,
-      },
-    });
-  }
-
-  async getDeviceByToken(token: string): Promise<Device> {
-    return await this.prisma.device.findUnique({
-      where: {
-        token,
-      },
-    });
   }
 
   async handleData(token: string, data: ApplicationData[]): Promise<void> {
