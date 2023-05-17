@@ -53,7 +53,7 @@
       <h1 class="ml-2 text-base-100 font-semibold text-xl">
         Dispositivo: {{ device.name || device.token }}
       </h1>
-      <div class="m-2 flex flex-row">
+      <div class="m-2 flex flex-row overflow-auto scrollbar-thin ">
         <app-card *ngFor="let app of device.apps" [app]="app"></app-card>
       </div>
     </div>
