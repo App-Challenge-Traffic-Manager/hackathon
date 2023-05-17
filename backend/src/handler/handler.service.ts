@@ -116,18 +116,22 @@ export class HandlerService {
         });
 
         if (!protocolExists) {
-          await this.prisma.protocolTraffic.create({
-            data: {
-              protocol: protocol.protocol,
-              upload: protocol.upload,
-              download: protocol.download,
-              Application: {
-                connect: {
-                  id: applicationExists.id,
+          try {
+            await this.prisma.protocolTraffic.create({
+              data: {
+                protocol: protocol.protocol,
+                upload: protocol.upload,
+                download: protocol.download,
+                Application: {
+                  connect: {
+                    id: applicationExists.id,
+                  },
                 },
               },
-            },
-          });
+            });
+          } catch (error) {
+            console.log(error);
+          }
         } else {
           await this.prisma.protocolTraffic.update({
             where: {
@@ -151,18 +155,22 @@ export class HandlerService {
         });
 
         if (!hostExists) {
-          await this.prisma.hostTraffic.create({
-            data: {
-              host: host.host,
-              upload: host.upload,
-              download: host.download,
-              Application: {
-                connect: {
-                  id: applicationExists.id,
+          try {
+            await this.prisma.hostTraffic.create({
+              data: {
+                host: host.host,
+                upload: host.upload,
+                download: host.download,
+                Application: {
+                  connect: {
+                    id: applicationExists.id,
+                  },
                 },
               },
-            },
-          });
+            });
+          } catch (error) {
+            console.log(error);
+          }
         } else {
           await this.prisma.hostTraffic.update({
             where: {
@@ -202,21 +210,26 @@ export class HandlerService {
         console.log(
           `Deleting duplicate applications and aggregates - ${duplicateApplication.id}`,
         );
-        await this.prisma.protocolTraffic.deleteMany({
-          where: {
-            applicationId: duplicateApplication.id,
-          },
-        });
+        try {
+          await this.prisma.protocolTraffic.deleteMany({
+            where: {
+              applicationId: duplicateApplication.id,
+            },
+          });
 
-        await this.prisma.hostTraffic.deleteMany({
-          where: {
-            applicationId: duplicateApplication.id,
-          },
-        });
+          await this.prisma.hostTraffic.deleteMany({
+            where: {
+              applicationId: duplicateApplication.id,
+            },
+          });
+        } catch (error) {
+          this.logger.warn(duplicateApplication.id);
+          this.logger.error(error);
+        }
 
-        await this.prisma.application.delete({
+        await this.prisma.application.deleteMany({
           where: {
-            id: duplicateApplication.id,
+            id: { in: duplicateApplications.map((app) => app.id) },
           },
         });
       }
