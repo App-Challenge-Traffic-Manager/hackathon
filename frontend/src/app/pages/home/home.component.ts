@@ -13,22 +13,22 @@ export class HomeComponent {
       data: [
         {
           title: 'Angular',
-          downloadSize: 22.5,
-          uploadSize: 12.3,
+          downloadSize: '22.5',
+          uploadSize: '12.3',
           upDate: '16/05/2023',
           upTime: '3123',
         },
         {
           title: 'React',
-          downloadSize: 22.5,
-          uploadSize: 12.3,
+          downloadSize: '22.5',
+          uploadSize: '12.3',
           upDate: '16/05/2023',
           upTime: '3123',
         },
         {
           title: 'Java',
-          downloadSize: 22.5,
-          uploadSize: 12.3,
+          downloadSize: '22.5',
+          uploadSize: '12.3',
           upDate: '16/05/2023',
           upTime: '3123',
         },
@@ -40,15 +40,15 @@ export class HomeComponent {
       data: [
         {
           title: 'Angular',
-          downloadSize: 22.5,
-          uploadSize: 12.3,
+          downloadSize: '22.5',
+          uploadSize: '12.3',
           upDate: '16/05/2023',
           upTime: '3123',
         },
         {
           title: 'React',
-          downloadSize: 22.5,
-          uploadSize: 12.3,
+          downloadSize: '22.5',
+          uploadSize: '12.3',
           upDate: '16/05/2023',
           upTime: '3123',
         },
@@ -60,15 +60,15 @@ export class HomeComponent {
       data: [
         {
           title: 'Angular',
-          downloadSize: 22.5,
-          uploadSize: 12.3,
+          downloadSize: '22.5',
+          uploadSize: '12.3',
           upDate: '16/05/2023',
           upTime: '3123',
         },
         {
           title: 'React',
-          downloadSize: 22.5,
-          uploadSize: 12.3,
+          downloadSize: '22.5',
+          uploadSize: '12.3',
           upDate: '16/05/2023',
           upTime: '3123',
         },

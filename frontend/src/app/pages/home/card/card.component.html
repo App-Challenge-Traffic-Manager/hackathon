@@ -1,9 +1,25 @@
 <div
-  class="bg-neutral h-[309px] w-[279px] m-1 rounded-[20px] justify-center items-center text-center flex"
+  class="bg-neutral min-w-[140px] min-h-[155px] sm:h-[155px] sm:w-[140px] md:h-[232px] md:w-[210px] lg:h-[310px] lg:w-[280px] m-1 rounded-[20px] justify-center items-center text-center flex pt-1 pb-2"
 >
-  <div class="h-5/6 justify-between items-center flex flex-col">
-    <p class="text-accent">{{ app.title }}</p>
-    <p class="text-primary">{{ app.downloadSize }}</p>
-    <p class="text-secondary">{{ app.uploadSize }}</p>
+  <div class="h-5/6 justify-between items-center flex flex-col w-full">
+    <p class="text-accent text-2xl font-semibold">{{ app.title }}</p>
+    <div class="h-2/6 bg-base-100 bg-opacity-5 w-3/4 rounded-3xl">
+      <p class="text-primary text-lg font-semibold">Upload</p>
+      <div class="inline-block">
+        <span class="text-primary text-5xl font-bold">{{
+          app.downloadSize
+        }}</span>
+        <span class="text-primary text-3xl font-bold">mb</span>
+      </div>
+    </div>
+    <div class="h-2/6 bg-base-100 bg-opacity-5 w-3/4 rounded-3xl">
+      <p class="text-secondary text-lg font-semibold">Download</p>
+      <div class="inline-block">
+        <span class="text-secondary text-5xl font-bold">{{
+          app.uploadSize
+        }}</span>
+        <span class="text-secondary text-3xl font-bold">mb</span>
+      </div>
+    </div>
   </div>
 </div>
