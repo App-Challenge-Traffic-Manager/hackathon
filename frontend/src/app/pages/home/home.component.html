@@ -3,6 +3,7 @@
     <div class="flex flex-row items-center justify-end w-10/12">
       <button
         class="btn h-12 w-12 bg-info stroke-info hover:bg-accent btn-sm align-middle content-center text-3xl text-base-100 font-extrabold"
+        (click) = "addDevice()"
       >
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -24,10 +25,10 @@
   <div class="flex flex-col items-center justify-center h-full w-10/12">
     <div *ngFor="let device of devices" class="m-2 flex flex-col w-full h-2/4">
       <h1 class="ml-2 text-base-100 font-semibold text-xl">
-        Dispositivo: {{ device.deviceName }}
+        Dispositivo: {{ device.name || device.token }}
       </h1>
       <div class="m-2 flex flex-row">
-        <app-card *ngFor="let app of device.data" [app]="app"></app-card>
+        <app-card *ngFor="let app of device.apps" [app]="app"></app-card>
       </div>
     </div>
   </div>
