@@ -3,6 +3,8 @@ import { NestFactory } from '@nestjs/core';
 import { useContainer } from 'class-validator';
 import { AppModule } from './app.module';
 import { PrismaService } from './prisma.service';
+import { ValidationPipe } from '@nestjs/common';
+import validationOptions from './utils/validation-options';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule, { cors: true });
@@ -13,6 +15,8 @@ async function bootstrap() {
   app.setGlobalPrefix(configService.get('app.apiPrefix'), {
     exclude: ['/'],
   });
+
+  app.useGlobalPipes(new ValidationPipe(validationOptions));
 
   const prismaService = app.get(PrismaService);
   await prismaService.enableShutdownHooks(app);
