@@ -3,6 +3,7 @@ import { ConfigModule } from '@nestjs/config';
 import appConfig from './config/app.config';
 import { SocketsModule } from './sockets/sockets.module';
 import { HandlerModule } from './handler/handler.module';
+import { DeviceModule } from './device/device.module';
 
 @Module({
   imports: [
@@ -13,6 +14,7 @@ import { HandlerModule } from './handler/handler.module';
     }),
     SocketsModule,
     HandlerModule,
+    DeviceModule,
   ],
   providers: [],
 })
