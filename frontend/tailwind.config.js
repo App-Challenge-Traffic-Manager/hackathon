@@ -2,7 +2,11 @@
 module.exports = {
   content: ["./src/**/*.{html,ts}"],
   theme: {
-    extend: {},
+    extend: {
+      fontFamily: {
+        'rajdhani': ['Rajdhani', 'sans-serif']
+      },
+    },
   },
   plugins: [require("daisyui")],
 
