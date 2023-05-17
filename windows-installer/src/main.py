@@ -300,9 +300,13 @@ async def connect():
 async def send_data():
     global sio
     while is_program_running:
-        json_data_string = json_serialize_traffic_data()
-        time.sleep(INFO_DELAY)
-        await sio.emit(SEND_DATA_EVENT, json_data_string)
+        try:
+            json_data_string = json_serialize_traffic_data()
+            time.sleep(INFO_DELAY)
+            await sio.emit(SEND_DATA_EVENT, json_data_string)
+        except Exception as e:
+            print(e)
+            print("Server is not available, trying to reconnect...")
 
 
 def start_send_data():
