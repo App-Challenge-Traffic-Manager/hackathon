@@ -76,7 +76,11 @@ export class HandlerService {
     if (!device) return;
 
     for (const application of data) {
-      await this.createApplicationIfNotExists(token, application);
+      try {
+        await this.createApplicationIfNotExists(token, application);
+      } catch (error) {
+        this.logger.error(error);
+      }
     }
   }
 
@@ -125,6 +129,8 @@ export class HandlerService {
           },
         },
       });
+
+      await this.deleteDuplicateApplicationsAndAggregates();
     } else {
       await this.prisma.application.update({
         where: {
@@ -155,7 +161,11 @@ export class HandlerService {
               protocol: protocol.protocol,
               upload: protocol.upload,
               download: protocol.download,
-              applicationId: applicationExists.id,
+              Application: {
+                connect: {
+                  id: applicationExists.id,
+                },
+              },
             },
           });
         } else {
@@ -186,7 +196,11 @@ export class HandlerService {
               host: host.host,
               upload: host.upload,
               download: host.download,
-              applicationId: applicationExists.id,
+              Application: {
+                connect: {
+                  id: applicationExists.id,
+                },
+              },
             },
           });
         } else {
@@ -201,6 +215,50 @@ export class HandlerService {
             },
           });
         }
+      }
+    }
+  }
+
+  async deleteDuplicateApplicationsAndAggregates(): Promise<void> {
+    const applications = await this.prisma.application.findMany({
+      include: {
+        protocol_traffics: true,
+        host_traffics: true,
+      },
+    });
+
+    for (const application of applications) {
+      const duplicateApplications = await this.prisma.application.findMany({
+        where: {
+          name: application.name,
+          deviceId: application.deviceId,
+          id: {
+            not: application.id,
+          },
+        },
+      });
+
+      for (const duplicateApplication of duplicateApplications) {
+        console.log(
+          `Deleting duplicate applications and aggregates - ${duplicateApplication.id}`,
+        );
+        await this.prisma.protocolTraffic.deleteMany({
+          where: {
+            applicationId: duplicateApplication.id,
+          },
+        });
+
+        await this.prisma.hostTraffic.deleteMany({
+          where: {
+            applicationId: duplicateApplication.id,
+          },
+        });
+
+        await this.prisma.application.delete({
+          where: {
+            id: duplicateApplication.id,
+          },
+        });
       }
     }
   }
