@@ -1,6 +1,7 @@
-#!/usr/bin/env bash
+#!/usr/bin bash
 set -e
 
 ls -la
-npx prisma migrate dev
+prisma
+
 npm run start:prod 

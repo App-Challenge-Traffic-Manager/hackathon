@@ -32,6 +32,7 @@ export class HandlerService {
   }
 
   async handleData(token: string, data: ApplicationData[]): Promise<void> {
+    console.log(`received data - ${token} - ${data.length}`);
     const device = await this.checkIfDeviceExists(token);
     if (!device) return;
 
