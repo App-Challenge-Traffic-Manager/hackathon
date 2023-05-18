@@ -1,14 +1,33 @@
 <div class="flex flex-col items-center justify-start pt-16">
   <div class="flex flex-row items-end justify-center w-full">
-    <div class="form-control w-full">
-      <div class="flex flex-row items-center justify-end w-10/12 input-group">
+    <div class="form-control w-10/12 flex flex-row">
+      <button
+        class="btn h-10 w-10 border-info bg-neutral stroke-info hover:bg-info btn-sm align-middle content-center text-3xl text-base-100 font-extrabold"
+        (click)="addDevice()"
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke-width="3"
+          stroke="currentColor"
+          class="w-6 h-6"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5M16.5 12L12 16.5m0 0L7.5 12m4.5 4.5V3"
+          />
+        </svg>
+      </button>
+      <div class="flex flex-row items-center justify-end w-full input-group">
         <input
           type="text"
           placeholder="ID do Dispositivo"
           class="input input-bordered border-info bg-neutral text-base-100 h-10"
         />
         <button
-          class="btn h-10 w-10 border-info bg-neutral stroke-info hover:bg-accent btn-sm align-middle content-center text-3xl text-base-100 font-extrabold"
+          class="btn h-10 w-10 border-info bg-neutral stroke-info hover:bg-info btn-sm align-middle content-center text-3xl text-base-100 font-extrabold"
           (click)="addDevice()"
         >
           <svg
@@ -17,7 +36,7 @@
             viewBox="0 0 24 24"
             stroke-width="4"
             stroke="currentColor"
-            class="w-5 h-5"
+            class="w-6 h-6"
           >
             <path
               stroke-linecap="round"
