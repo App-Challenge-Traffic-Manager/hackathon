@@ -1,25 +1,32 @@
 <div class="flex flex-col items-center justify-start pt-16">
   <div class="flex flex-row items-end justify-center w-full">
-    <div class="flex flex-row items-center justify-end w-10/12">
-      <button
-        class="btn h-12 w-12 bg-info stroke-info hover:bg-accent btn-sm align-middle content-center text-3xl text-base-100 font-extrabold"
-        (click) = "addDevice()"
-      >
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          fill="none"
-          viewBox="0 0 24 24"
-          stroke-width="4"
-          stroke="currentColor"
-          class="w-5 h-5"
+    <div class="form-control w-full">
+      <div class="flex flex-row items-center justify-end w-10/12 input-group">
+        <input
+          type="text"
+          placeholder="ID do Dispositivo"
+          class="input input-bordered border-info bg-neutral text-base-100 h-10"
+        />
+        <button
+          class="btn h-10 w-10 border-info bg-neutral stroke-info hover:bg-accent btn-sm align-middle content-center text-3xl text-base-100 font-extrabold"
+          (click)="addDevice()"
         >
-          <path
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            d="M12 4.5v15m7.5-7.5h-15"
-          />
-        </svg>
-      </button>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke-width="4"
+            stroke="currentColor"
+            class="w-5 h-5"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="M12 4.5v15m7.5-7.5h-15"
+            />
+          </svg>
+        </button>
+      </div>
     </div>
   </div>
   <div class="flex flex-col items-center justify-center h-full w-10/12">
