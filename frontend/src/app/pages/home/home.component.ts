@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { IDevice } from 'src/app/interfaces/device.interface';
 import { DeviceService } from 'src/app/services/device.service';
 
@@ -8,21 +9,26 @@ import { DeviceService } from 'src/app/services/device.service';
   styleUrls: ['./home.component.scss'],
 })
 export class HomeComponent implements OnInit {
+  myForm!: FormGroup;
   devices: IDevice[] = [];
 
   constructor(private readonly deviceService: DeviceService) {}
 
   ngOnInit(): void {
+    this.myForm = new FormGroup({
+      deviceId: new FormControl('', [Validators.required]),
+    });
     this.deviceService.getDevices().subscribe((devices) => {
-      console.log(devices);
       this.devices = devices;
     });
   }
 
-  addDevice() {
-    console.log('add device');
+  onSubmit() {
     this.deviceService.addTokenToLocalStorage(
-      'a61b38f3878dc1607ea4d373c2894144'
+      this.myForm.controls['deviceId'].value
     );
+    this.deviceService.getDevices().subscribe((devices) => {
+      this.devices = devices;
+    });
   }
 }

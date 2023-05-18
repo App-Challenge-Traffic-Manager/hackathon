@@ -3,7 +3,6 @@
     <div class="form-control w-10/12 flex flex-row">
       <button
         class="btn h-10 w-10 border-info bg-neutral stroke-info hover:bg-info btn-sm align-middle content-center text-3xl text-base-100 font-extrabold"
-        (click)="addDevice()"
       >
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -20,15 +19,20 @@
           />
         </svg>
       </button>
-      <div class="flex flex-row items-center justify-end w-full input-group">
+      <form
+        (ngSubmit)="onSubmit()"
+        [formGroup]="myForm"
+        class="input-group flex flex-row items-center justify-end w-full"
+      >
         <input
           type="text"
+          formControlName="deviceId"
           placeholder="ID do Dispositivo"
           class="input input-bordered border-info bg-neutral text-base-100 h-10"
         />
         <button
           class="btn h-10 w-10 border-info bg-neutral stroke-info hover:bg-info btn-sm align-middle content-center text-3xl text-base-100 font-extrabold"
-          (click)="addDevice()"
+          type="submit"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -45,7 +49,7 @@
             />
           </svg>
         </button>
-      </div>
+      </form>
     </div>
   </div>
   <div class="flex flex-col items-center justify-center h-full w-10/12">
@@ -53,7 +57,9 @@
       <h1 class="ml-2 text-base-100 font-semibold text-xl">
         Dispositivo: {{ device.name || device.token }}
       </h1>
-      <div class="m-2 flex flex-row overflow-auto scrollbar-thin ">
+      <div
+        class="m-2 flex flex-row overflow-x-scroll scrollbar-thin scrollbar-thumb-neutral scrollbar-track-rounded-full scrollbar-thumb-rounded-full"
+      >
         <app-card *ngFor="let app of device.apps" [app]="app"></app-card>
       </div>
     </div>
