@@ -4,14 +4,14 @@
   <div class="flex flex-row items-end justify-center w-full">
     <div class="flex flex-row items-center justify-start w-10/12">
       <button
-        class="btn h-12 w-12 bg-info stroke-info hover:bg-primary btn-sm align-middle content-center text-3xl text-base-100 font-extrabold"
+        class="btn h-10 w-10 bg-neutral border-info stroke-info hover:bg-primary btn-sm align-middle content-center text-3xl text-base-100 font-extrabold"
         (click)="navigate()"
       >
         <svg
           xmlns="http://www.w3.org/2000/svg"
           fill="none"
           viewBox="0 0 24 24"
-          stroke-width="1.5"
+          stroke-width="3"
           stroke="currentColor"
           class="w-6 h-6"
         >
@@ -27,90 +27,113 @@
   <div
     class="flex flex-col items-center justify-start text-center min-h-min max-h-min h-full w-10/12 pt-2"
   >
-    <div class="min-h-min h-[95%] w-full bg-neutral rounded-3xl"></div>
+    <div class="min-h-[75%] h-[75%] w-full bg-neutral rounded-3xl"></div>
     <div
-      class="flex flex-row items-center justify-start w-full max-w-full min-h-[30%] overflow-x-scroll scrollbar-thin scrollbar-thumb-neutral scrollbar-track-rounded-full scrollbar-thumb-rounded-full"
+      class="flex flex-row items-center justify-start w-full max-w-full min-h-[25%] overflow-x-scroll scrollbar-thin scrollbar-thumb-neutral scrollbar-track-rounded-full scrollbar-thumb-rounded-full"
     >
       <div
-        class="min-h-[80%] h-[80%] min-w-[20%] max-w-[20%] bg-neutral mx-1 border-accent border-[1px] rounded-xl flex flex-col items-center justify-evenly py-1"
+        class="min-h-[80%] h-[80%] min-w-[22%] max-w-[22%] bg-neutral mx-1 border-accent border-[1px] rounded-xl flex flex-col items-center justify-evenly py-1"
       >
         <p
-          class="text-base-100 font-rajdhani text-lg font-semibold truncate w-[90%]"
+          class="text-base-100 font-rajdhani font-semibold sm:text-sm md:text-base lg:text-lg xl:text-xl 2xl:text-2xl truncate w-[90%]"
         >
           Informações Gerais
         </p>
         <div class="w-full h-[70%] flex flex-row items-center justify-evenly">
           <div
-            class="w-[43%] h-full bg-base-100 bg-opacity-5 rounded-xl flex flex-col justify-evenly items-center"
+            class="min-w-[43%] w-fit h-full bg-base-100 bg-opacity-5 rounded-xl flex flex-col justify-center items-center px-2"
           >
-            <p class="text-info font-rajdhani font-semibold">
-              {{date}}
+            <p class="text-info font-rajdhani sm:text-base md:text-lg lg:text-xl xl:text-2xl 2xl:text-3xl font-semibold">
+              {{ date }}
             </p>
-            <p class="text-info font-rajdhani font-medium">Iniciado em</p>
+            <p class="text-info font-rajdhani font-semibold sm:text-xs md:text-sm lg:text-base xl:text-lg 2xl:text-xl">Iniciado em</p>
           </div>
           <div
-            class="w-[43%] h-full bg-base-100 bg-opacity-5 rounded-xl flex flex-col justify-evenly items-center"
+            class="min-w-[43%] w-fit h-full bg-base-100 bg-opacity-5 rounded-xl flex flex-col justify-center items-center px-2"
           >
-            <p class="text-secondary font-rajdhani font-semibold">
-              {{uptime}}
+            <p class="text-secondary font-rajdhani sm:text-base md:text-lg lg:text-xl xl:text-2xl 2xl:text-3xl font-semibold">
+              {{ uptime }}
             </p>
-            <p class="text-secondary font-rajdhani font-medium">Horário</p>
+            <p class="text-secondary font-rajdhani font-semibold sm:text-xs md:text-sm lg:text-base xl:text-lg 2xl:text-xl">Horário</p>
           </div>
         </div>
       </div>
       <div
         *ngFor="let protocol of protocol_traffic"
-        class="min-h-[80%] h-[80%] min-w-[20%] max-w-[20%] bg-neutral mx-1 border-info border-[1px] rounded-xl flex flex-col items-center justify-evenly py-1"
+        class="min-h-[80%] h-[80%] min-w-[22%] max-w-[22%] bg-neutral mx-1 border-info border-[1px] rounded-xl flex flex-col items-center justify-evenly py-1"
       >
         <p
-          class="text-base-100 font-rajdhani text-lg font-semibold truncate w-[90%]"
+          class="text-base-100 font-rajdhani font-semibold sm:text-sm md:text-base lg:text-lg xl:text-xl 2xl:text-2xl truncate w-[90%]"
         >
           {{ protocol.name }}
         </p>
         <div class="w-full h-[70%] flex flex-row items-center justify-evenly">
           <div
-            class="w-[43%] h-full bg-base-100 bg-opacity-5 rounded-xl flex flex-col justify-evenly items-center"
+            class="min-w-[43%] w-fit h-full bg-base-100 bg-opacity-5 rounded-xl flex flex-col justify-center items-center px-2"
           >
-            <p class="text-info font-rajdhani font-semibold">
-              {{ protocol.download }}
-            </p>
-            <p class="text-info font-rajdhani font-medium">Download</p>
+            <div class="inline-block">
+              <span class="text-info sm:text-lg md:text-xl lg:text-2xl xl:text-3xl 2xl:text-4xl font-semibold font-rajdhani">{{
+                formatValue(protocol.download)
+              }}</span>
+              <span class="text-info sm:text-sm md:text-base lg:text-lg xl:text-xl 2xl:text-2xl font-bold font-rajdhani">{{
+                formatUnit(protocol.download)
+              }}</span>
+            </div>
+            <p class="text-info font-rajdhani font-semibold sm:text-xs md:text-sm lg:text-base xl:text-lg 2xl:text-xl">Download</p>
           </div>
           <div
-            class="w-[43%] h-full bg-base-100 bg-opacity-5 rounded-xl flex flex-col justify-evenly items-center"
+            class="min-w-[43%] w-fit h-full bg-base-100 bg-opacity-5 rounded-xl flex flex-col justify-center items-center px-2"
           >
-            <p class="text-secondary font-rajdhani font-semibold">
-              {{ protocol.upload }}
-            </p>
-            <p class="text-secondary font-rajdhani font-medium">Upload</p>
+            <div class="inline-block">
+              <span
+                class="text-secondary sm:text-lg md:text-xl lg:text-2xl xl:text-3xl 2xl:text-4xl font-semibold font-rajdhani"
+                >{{ formatValue(protocol.upload) }}</span
+              >
+              <span class="text-secondary sm:text-sm md:text-base lg:text-lg xl:text-xl 2xl:text-2xl font-bold font-rajdhani">{{
+                formatUnit(protocol.upload)
+              }}</span>
+            </div>
+
+            <p class="text-secondary font-rajdhani font-semibold sm:text-xs md:text-sm lg:text-base xl:text-lg 2xl:text-xl">Upload</p>
           </div>
         </div>
       </div>
       <div
         *ngFor="let host of host_traffic"
-        class="min-h-[80%] h-[80%] min-w-[20%] max-w-[20%] bg-neutral mx-1 border-secondary border-[1px] rounded-xl flex flex-col items-center justify-evenly py-1"
+        class="min-h-[80%] h-[80%] min-w-[22%] max-w-[22%] bg-neutral mx-1 border-secondary border-[1px] rounded-xl flex flex-col items-center justify-evenly py-1"
       >
         <p
-          class="text-base-100 font-rajdhani text-lg font-semibold truncate w-[90%]"
+          class="text-base-100 font-rajdhani sm:text-sm md:text-base lg:text-lg xl:text-xl 2xl:text-2xl font-semibold truncate w-[90%]"
         >
           {{ host.name }}
         </p>
         <div class="w-full h-[70%] flex flex-row items-center justify-evenly">
           <div
-            class="w-[43%] h-full bg-base-100 bg-opacity-5 rounded-xl flex flex-col justify-evenly items-center"
+            class="min-w-[43%] w-fit h-full  bg-base-100 bg-opacity-5 rounded-xl flex flex-col justify-center items-center px-2"
           >
-            <p class="text-info font-rajdhani font-semibold">
-              {{ host.download }}
-            </p>
-            <p class="text-info font-rajdhani font-medium">Download</p>
+            <div class="inline-block">
+              <span class="text-info sm:text-lg md:text-xl lg:text-2xl xl:text-3xl 2xl:text-4xl font-semibold font-rajdhani">{{
+                formatValue(host.download)
+              }}</span>
+              <span class="text-info sm:text-sm md:text-base lg:text-lg xl:text-xl 2xl:text-2xl font-bold font-rajdhani">{{
+                formatUnit(host.download)
+              }}</span>
+            </div>
+            <p class="text-info font-rajdhani font-semibold sm:text-xs md:text-sm lg:text-base xl:text-lg 2xl:text-xl">Download</p>
           </div>
           <div
-            class="w-[43%] h-full bg-base-100 bg-opacity-5 rounded-xl flex flex-col justify-evenly items-center"
+            class="min-w-[43%] w-fit h-full bg-base-100 bg-opacity-5 rounded-xl flex flex-col justify-center items-center px-2"
           >
-            <p class="text-secondary font-rajdhani font-semibold">
-              {{ host.upload }}
-            </p>
-            <p class="text-secondary font-rajdhani font-medium">Upload</p>
+            <div class="inline-block">
+              <span
+                class="text-secondary sm:text-lg md:text-xl lg:text-2xl xl:text-3xl 2xl:text-4xl font-semibold font-rajdhani"
+                >{{ formatValue(host.upload) }}</span
+              >
+              <span class="text-secondary sm:text-sm md:text-base lg:text-lg xl:text-xl 2xl:text-2xl font-bold font-rajdhani">{{
+                formatUnit(host.upload)
+              }}</span>
+            </div>
+            <p class="text-secondary font-rajdhani font-semibold sm:text-xs md:text-sm lg:text-base xl:text-lg 2xl:text-xl">Upload</p>
           </div>
         </div>
       </div>
