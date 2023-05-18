@@ -1,6 +1,7 @@
 import asyncio
 import socketio
 from scapy.all import *
+from scapy.layers.inet import IP
 
 from collections import defaultdict
 import psutil
@@ -9,8 +10,14 @@ import socket
 import json
 from threading import Thread
 
+
 from identity_service import get_identity
 
+from tray_app import TrayApp
+
+"""
+    UTILS SECTION
+"""
 
 SERVER = 'http://localhost:3333/api/?token='
 
@@ -18,13 +25,18 @@ INFO_DELAY = 5
 
 SEND_DATA_EVENT = 'receive-data'
 
+LOGGER = True
+
 my_identity = None
 
 loop = asyncio.new_event_loop()
 sio = socketio.AsyncClient(
-    logger=True, reconnection=True, reconnection_attempts=5)
+    logger=LOGGER, reconnection=True, reconnection_attempts=5)
 
 
+"""
+    START OF TRAFFIC MONITORING SECTION
+"""
 all_macs = set()
 
 for iface in psutil.net_if_addrs():
@@ -289,7 +301,15 @@ def fetch_connections():
     while is_program_running:
         get_connection()
 
-##############################################################################################################
+
+"""
+    END OF TRAFFIC MONITORING SECTION
+"""
+
+
+"""
+    START OF SOCKET.IO SECTION
+"""
 
 
 @sio.event
@@ -299,8 +319,10 @@ async def connect():
 
 async def send_data():
     global sio
+    global is_program_running
     while is_program_running:
         try:
+            print(f'program is running: {is_program_running}')
             json_data_string = json_serialize_traffic_data()
             time.sleep(INFO_DELAY)
             await sio.emit(SEND_DATA_EVENT, json_data_string)
@@ -314,35 +336,76 @@ def start_send_data():
 
 
 async def start_client_socket():
-    await sio.connect(SERVER + my_identity['token'], transports=['websocket'])
-    await sio.wait()
+    try:
+        await sio.connect(SERVER + my_identity['token'], transports=['websocket'])
+        await sio.wait()
+    except Exception as e:
+        global LOGGER
+        if LOGGER:
+            print(e)
+        print("Server is not available, trying to reconnect...")
 
 
 def process_start_client_socket():
     asyncio.run(start_client_socket())
 
 
-def main():
+"""
+    END OF SOCKET.IO SECTION
+"""
+
+
+def stop_process():
+    global is_program_running
+
+    global sio
+
+    is_program_running = False
+
+    sio.disconnect()
+
+    print("Network sniffer stopped.")
+
+
+def stop_capture(pkt):
+    global is_program_running
+
+    if is_program_running:
+        return False
+    return True
+
+
+def start_process():
 
     global my_identity
 
     my_identity = get_identity()
 
-    socket_thread = Thread(target=process_start_client_socket)
+    socket_thread = Thread(target=process_start_client_socket, daemon=True)
     socket_thread.start()
 
-    connection_thread = Thread(target=fetch_connections)
+    connection_thread = Thread(target=fetch_connections, daemon=True)
     connection_thread.start()
 
-    send_data_thread = Thread(target=start_send_data)
+    send_data_thread = Thread(target=start_send_data, daemon=True)
     send_data_thread.start()
 
+    socket_thread.join(), connection_thread.join(), send_data_thread.join()
+
     print("Network sniffer initialized.")
-    sniff(prn=get_traffic_data, store=False)
+
+    sniff(prn=get_traffic_data, store=False, stop_filter=stop_capture)
 
     global is_program_running
 
     is_program_running = False
+
+
+def main():
+    app = TrayApp(process_function=start_process, exit_function=stop_process)
+    app.start()
+    print('oi')
+    sys.exit()
 
 
 if __name__ == "__main__":

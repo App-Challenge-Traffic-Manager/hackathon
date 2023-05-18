@@ -2,8 +2,12 @@ import hashlib
 import json
 from datetime import datetime
 from pathlib import Path
+import os
+import sys
 
-identity_file = Path("identity.json")
+# Obtém o caminho do arquivo JSON na pasta anterior aos arquivos deste script
+json_file_path = os.path.join(os.path.dirname(
+    os.path.abspath(__file__)), 'identity.json')
 
 
 def generate_token():
@@ -18,7 +22,8 @@ def generate_token():
 
 
 def check_if_identity_exists():
-    identity_file = Path("identity.json")
+    identity_file = Path(json_file_path)
+    print(identity_file)
     if identity_file.is_file():
         return True
     else:
@@ -31,14 +36,14 @@ def create_identity_if_not_exists():
         identity["token"] = generate_token()
         identity["created_at"] = datetime.now().strftime("%d/%m/%Y %H:%M:%S")
 
-        with open('identity.json', 'w') as f:
+        with open(json_file_path, 'w') as f:
             json.dump(identity, f, indent=4)
 
 
 def get_identity():
     create_identity_if_not_exists()
     if check_if_identity_exists() == True:
-        with open('identity.json', 'r') as f:
+        with open(json_file_path, 'r') as f:
             identity = json.load(f)
         return identity
     else:

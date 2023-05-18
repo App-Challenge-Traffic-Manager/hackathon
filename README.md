@@ -1,2 +1,3 @@
-# hackathon
-All projects to Traffic Manager aplication
+# TraffOpti
+
+All projects to Traffic Optimization aplication
