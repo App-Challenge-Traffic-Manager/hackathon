@@ -4,11 +4,11 @@ module.exports = {
   theme: {
     extend: {
       fontFamily: {
-        'rajdhani': ['Rajdhani', 'sans-serif']
+        rajdhani: ["Rajdhani", "sans-serif"],
       },
     },
   },
-  plugins: [require("daisyui")],
+  plugins: [require("daisyui"), require("tailwind-scrollbar")],
 
   daisyui: {
     styled: true,
