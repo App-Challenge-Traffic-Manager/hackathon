@@ -1,3 +1,6 @@
 /.vscode
 .tool-versions
 README.md
+
+/dist
+/node_modules
