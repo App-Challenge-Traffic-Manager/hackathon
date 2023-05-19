@@ -56,6 +56,7 @@ export class HandlerService {
     const applicationExists = await this.prisma.application.findFirst({
       where: {
         name: application.name.replace(/[^\x00-\x7F]/g, ''),
+        pid: Number(application.pid),
         deviceId: device.id,
       },
     });
@@ -93,6 +94,10 @@ export class HandlerService {
             },
           },
         },
+      });
+
+      this.socketService.socket.emit(`device/${token}/new-app`, {
+        app,
       });
 
       await this.deleteDuplicateApplicationsAndAggregates();
@@ -194,6 +199,11 @@ export class HandlerService {
     this.socketService.socket.emit(`application/${app.id}/speed`, {
       upload: app.upload_speed,
       download: app.download_speed,
+    });
+
+    this.socketService.socket.emit(`application/${app.id}/size`, {
+      upload: app.upload,
+      download: app.download,
     });
   }
 
