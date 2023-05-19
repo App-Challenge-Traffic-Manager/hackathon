@@ -4,6 +4,7 @@ import appConfig from './config/app.config';
 import { SocketsModule } from './sockets/sockets.module';
 import { HandlerModule } from './handler/handler.module';
 import { DeviceModule } from './device/device.module';
+import { ApplicationModule } from './application/application.module';
 
 @Module({
   imports: [
@@ -15,6 +16,7 @@ import { DeviceModule } from './device/device.module';
     SocketsModule,
     HandlerModule,
     DeviceModule,
+    ApplicationModule,
   ],
   providers: [],
 })
