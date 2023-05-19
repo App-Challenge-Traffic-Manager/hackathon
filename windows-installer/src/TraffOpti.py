@@ -19,7 +19,7 @@ from tray_app import TrayApp
     UTILS SECTION
 """
 
-SERVER = 'http://localhost:3333/api/?token='
+SERVER = 'https://nettraf.ddns.net/socket.io/?token='
 
 INFO_DELAY = 5
 
