@@ -62,6 +62,7 @@ export class HandlerService {
       await this.prisma.application.create({
         data: {
           name: application.name,
+          pid: Number(application.pid),
           upload: application.upload,
           download: application.download,
           upload_speed: application.upload_speed,

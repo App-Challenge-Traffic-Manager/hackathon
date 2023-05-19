@@ -1,5 +1,5 @@
 export interface ApplicationData {
-  pid: string;
+  pid: number;
   name: string;
   create_time: string;
   last_time_update: string;
