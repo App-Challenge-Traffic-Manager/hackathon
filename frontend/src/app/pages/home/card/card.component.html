@@ -4,7 +4,7 @@
 >
   <div class="h-5/6 justify-between items-center flex flex-col w-full">
     <p class="text-accent text-4xl font-bold font-rajdhani truncate w-3/4">
-      {{ app.name }}
+      {{ name }}
     </p>
     <div
       class="h-2/6 bg-base-100 bg-opacity-5 w-3/4 rounded-3xl flex flex-col justify-around"
@@ -12,10 +12,10 @@
       <p class="text-primary text-xl font-semibold font-rajdhani">Download</p>
       <div class="inline-block">
         <span class="text-primary text-5xl font-semibold font-rajdhani">{{
-          formatValue(app.download)
+          formatValue(download)
         }}</span>
         <span class="text-primary text-3xl font-bold font-rajdhani">{{
-          formatUnit(app.download)
+          formatUnit(download)
         }}</span>
       </div>
     </div>
@@ -25,17 +25,17 @@
       <p class="text-secondary text-xl font-semibold font-rajdhani">Upload</p>
       <div class="inline-block">
         <span class="text-secondary text-5xl font-semibold font-rajdhani">{{
-          formatValue(app.upload)
+          formatValue(upload)
         }}</span>
         <span class="text-secondary text-3xl font-bold font-rajdhani">{{
-          formatUnit(app.upload)
+          formatUnit(upload)
         }}</span>
       </div>
     </div>
     <span
       class="text-base-100 text-base font-semi bold font-rajdhani truncate w-3/4"
     >
-      PID: {{ app.pid }}
+      PID: {{ pid }}
     </span>
   </div>
 </div>
