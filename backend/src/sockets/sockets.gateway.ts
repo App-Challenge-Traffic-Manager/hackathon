@@ -51,10 +51,12 @@ export class SocketsGateway
   }
 
   handleConnection(client: Socket) {
-    this.logger.log(`Client connected: ${client.handshake.query.token}`);
-    this.handlerService.createDeviceIfNotExists(
-      client.handshake.query?.token?.toString(),
-    );
+    this.logger.log(`Client connected: ${client.id}`);
+    if (client.handshake.query.token) {
+      this.handlerService.createDeviceIfNotExists(
+        client.handshake.query?.token?.toString(),
+      );
+    }
   }
 
   handleDisconnect(client: Socket) {

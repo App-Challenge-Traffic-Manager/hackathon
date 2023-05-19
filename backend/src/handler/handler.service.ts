@@ -2,12 +2,14 @@ import { Injectable, Logger } from '@nestjs/common';
 import { Device } from '@prisma/client';
 import { PrismaService } from 'src/prisma.service';
 import { ApplicationData } from './interfaces/data.interface';
+import { SocketService } from 'src/sockets/sockets.service';
 
 @Injectable()
 export class HandlerService {
   constructor(
     private readonly prisma: PrismaService,
     private readonly logger: Logger,
+    private readonly socketService: SocketService,
   ) {}
 
   async checkIfDeviceExists(token: string): Promise<Device> {
@@ -58,8 +60,10 @@ export class HandlerService {
       },
     });
 
+    let app;
+
     if (!applicationExists) {
-      await this.prisma.application.create({
+      app = await this.prisma.application.create({
         data: {
           name: application.name,
           pid: Number(application.pid),
@@ -93,7 +97,7 @@ export class HandlerService {
 
       await this.deleteDuplicateApplicationsAndAggregates();
     } else {
-      await this.prisma.application.update({
+      app = await this.prisma.application.update({
         where: {
           id: applicationExists.id,
         },
@@ -186,6 +190,11 @@ export class HandlerService {
         }
       }
     }
+
+    this.socketService.socket.emit(`application/${app.id}/speed`, {
+      upload: app.upload_speed,
+      download: app.download_speed,
+    });
   }
 
   async deleteDuplicateApplicationsAndAggregates(): Promise<void> {
