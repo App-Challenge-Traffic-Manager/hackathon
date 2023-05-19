@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-details',
@@ -7,44 +7,54 @@ import { Router } from '@angular/router';
   styleUrls: ['./details.component.scss'],
 })
 export class DetailsComponent {
-  public date:String = '18/05/2023'
-  public uptime:String = '02:14';
+  public date: String = '18/05/2023';
+  public uptime: String = '02:14';
+  deviceId!: string;
   protocol_traffic = [
     {
       name: 'HTTP',
       download: '202.20KB',
-      upload: '00.02KB'
+      upload: '00.02KB',
     },
     {
       name: 'SSSSSSSSSSSSSSSSSSSSSSSSSSSSSS',
       download: '202.20KB',
-      upload: '00.02KB'
+      upload: '00.02KB',
     },
     {
       name: 'TCP',
       download: '202.20KB',
-      upload: '00.02KB'
+      upload: '00.02KB',
     },
   ];
   host_traffic = [
     {
       name: '192.168.10.101',
       download: '202.20KB',
-      upload: '00.02KB'
+      upload: '00.02KB',
     },
     {
       name: 'Specific Hosts',
       download: '202.20KB',
-      upload: '00.02KB'
+      upload: '00.02KB',
     },
     {
       name: 'Specific Ports',
       download: '202.20KB',
-      upload: '00.02KB'
+      upload: '00.02KB',
     },
   ];
 
-  constructor(private readonly router: Router) {}
+  constructor(
+    private readonly routeActiv: ActivatedRoute,
+    private readonly router: Router
+  ) {}
+
+  ngOnInit() {
+    this.routeActiv.queryParams.subscribe(params => {this.deviceId = params['app']})
+    console.log(this.deviceId);
+  }
+
   navigate() {
     this.router.navigate(['/home']);
   }
@@ -62,7 +72,7 @@ export class DetailsComponent {
       : text.substring(0, text.length - 1);
   }
 
-  formatUnit(text:string) {
+  formatUnit(text: string) {
     return this.testRegex(text)
       ? text.substring(text.length - 2, text.length)
       : text.substring(text.length - 1, text.length);

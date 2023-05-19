@@ -1,9 +1,10 @@
 <div
+  (click)="onClick()"
   class="bg-neutral min-w-[140px] min-h-[155px] sm:h-[155px] sm:w-[140px] md:h-[232px] md:w-[210px] lg:h-[310px] lg:w-[280px] m-1 rounded-[20px] justify-center items-center text-center flex pt-1 pb-2"
 >
   <div class="h-5/6 justify-between items-center flex flex-col w-full">
     <p class="text-accent text-4xl font-bold font-rajdhani truncate w-3/4">
-      {{app.name}}
+      {{ app.name }}
     </p>
     <div
       class="h-2/6 bg-base-100 bg-opacity-5 w-3/4 rounded-3xl flex flex-col justify-around"
