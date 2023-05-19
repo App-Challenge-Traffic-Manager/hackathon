@@ -33,6 +33,7 @@ loop = asyncio.new_event_loop()
 sio = socketio.AsyncClient(
     logger=LOGGER, reconnection=True, reconnection_attempts=5)
 
+app_threads = []
 
 """
     START OF TRAFFIC MONITORING SECTION
@@ -372,6 +373,10 @@ def stop_capture(pkt):
 
     if is_program_running:
         return False
+
+    global app_threads
+    for a_thread in app_threads:
+        a_thread.join()
     return True
 
 
@@ -390,8 +395,8 @@ def start_process():
     send_data_thread = Thread(target=start_send_data, daemon=True)
     send_data_thread.start()
 
-    socket_thread.join(), connection_thread.join(), send_data_thread.join()
-
+    global app_threads
+    app_threads = [socket_thread, connection_thread, send_data_thread]
     print("Network sniffer initialized.")
 
     sniff(prn=get_traffic_data, store=False, stop_filter=stop_capture)
