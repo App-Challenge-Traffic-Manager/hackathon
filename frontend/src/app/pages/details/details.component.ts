@@ -24,6 +24,8 @@ interface IMessage {
 })
 export class DetailsComponent implements OnInit {
   id!: String;
+  name!: String;
+  pid!: number;
   date!: String;
   uptime!: String;
   protocol_traffic!: IProtocolTraffic[];
@@ -41,9 +43,8 @@ export class DetailsComponent implements OnInit {
 
   ngOnInit(): void {
     this.routeActiv.queryParams.subscribe((params) => {
-      console.log(params['app']);
+      this.id = params['app'];
     });
-    this.id = '99927a29-a299-4c68-a0ac-963630750764';
     this.applicationService
       .fetchApplication(this.id.toString())
       .subscribe((application: IApplication) => {
@@ -51,6 +52,8 @@ export class DetailsComponent implements OnInit {
         this.host_traffic = application.host_traffics;
         this.date = application.started_at.split(',')[0];
         this.uptime = application.started_at.split(',')[1].replace(' ', '');
+        this.name = application.name;
+        this.pid = application.pid;
       });
 
     this.socketService

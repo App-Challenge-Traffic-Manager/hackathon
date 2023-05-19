@@ -22,8 +22,12 @@
           />
         </svg>
       </button>
-      <span class="font-rajdhani text-base-100 font-bold text-3xl">Nome Aqui</span>
-      <span class="font-rajdhani text-base-100 font-semibold text-lg">PID: blbllbbllb</span>
+      <span class="font-rajdhani text-base-100 font-bold text-3xl">{{
+        name
+      }}</span>
+      <span class="font-rajdhani text-base-100 font-semibold text-lg"
+        >PID: {{ pid }}</span
+      >
     </div>
   </div>
   <div
@@ -45,18 +49,30 @@
           <div
             class="min-w-[43%] w-fit h-full bg-base-100 bg-opacity-5 rounded-xl flex flex-col justify-center items-center px-2"
           >
-            <p class="text-info font-rajdhani sm:text-base md:text-lg lg:text-xl xl:text-2xl 2xl:text-3xl font-semibold">
+            <p
+              class="text-info font-rajdhani sm:text-base md:text-lg lg:text-xl xl:text-2xl 2xl:text-3xl font-semibold"
+            >
               {{ date }}
             </p>
-            <p class="text-info font-rajdhani font-semibold sm:text-xs md:text-sm lg:text-base xl:text-lg 2xl:text-xl">Iniciado em</p>
+            <p
+              class="text-info font-rajdhani font-semibold sm:text-xs md:text-sm lg:text-base xl:text-lg 2xl:text-xl"
+            >
+              Iniciado em
+            </p>
           </div>
           <div
             class="min-w-[43%] w-fit h-full bg-base-100 bg-opacity-5 rounded-xl flex flex-col justify-center items-center px-2"
           >
-            <p class="text-secondary font-rajdhani sm:text-base md:text-lg lg:text-xl xl:text-2xl 2xl:text-3xl font-semibold">
+            <p
+              class="text-secondary font-rajdhani sm:text-base md:text-lg lg:text-xl xl:text-2xl 2xl:text-3xl font-semibold"
+            >
               {{ uptime }}
             </p>
-            <p class="text-secondary font-rajdhani font-semibold sm:text-xs md:text-sm lg:text-base xl:text-lg 2xl:text-xl">Horário</p>
+            <p
+              class="text-secondary font-rajdhani font-semibold sm:text-xs md:text-sm lg:text-base xl:text-lg 2xl:text-xl"
+            >
+              Horário
+            </p>
           </div>
         </div>
       </div>
@@ -74,14 +90,20 @@
             class="min-w-[43%] w-fit h-full bg-base-100 bg-opacity-5 rounded-xl flex flex-col justify-center items-center px-2"
           >
             <div class="inline-block">
-              <span class="text-info sm:text-lg md:text-xl lg:text-2xl xl:text-3xl 2xl:text-4xl font-semibold font-rajdhani">{{
-                formatValue(protocol.download)
-              }}</span>
-              <span class="text-info sm:text-sm md:text-base lg:text-lg xl:text-xl 2xl:text-2xl font-bold font-rajdhani">{{
-                formatUnit(protocol.download)
-              }}</span>
+              <span
+                class="text-info sm:text-lg md:text-xl lg:text-2xl xl:text-3xl 2xl:text-4xl font-semibold font-rajdhani"
+                >{{ formatValue(protocol.download) }}</span
+              >
+              <span
+                class="text-info sm:text-sm md:text-base lg:text-lg xl:text-xl 2xl:text-2xl font-bold font-rajdhani"
+                >{{ formatUnit(protocol.download) }}</span
+              >
             </div>
-            <p class="text-info font-rajdhani font-semibold sm:text-xs md:text-sm lg:text-base xl:text-lg 2xl:text-xl">Download</p>
+            <p
+              class="text-info font-rajdhani font-semibold sm:text-xs md:text-sm lg:text-base xl:text-lg 2xl:text-xl"
+            >
+              Download
+            </p>
           </div>
           <div
             class="min-w-[43%] w-fit h-full bg-base-100 bg-opacity-5 rounded-xl flex flex-col justify-center items-center px-2"
@@ -91,12 +113,17 @@
                 class="text-secondary sm:text-lg md:text-xl lg:text-2xl xl:text-3xl 2xl:text-4xl font-semibold font-rajdhani"
                 >{{ formatValue(protocol.upload) }}</span
               >
-              <span class="text-secondary sm:text-sm md:text-base lg:text-lg xl:text-xl 2xl:text-2xl font-bold font-rajdhani">{{
-                formatUnit(protocol.upload)
-              }}</span>
+              <span
+                class="text-secondary sm:text-sm md:text-base lg:text-lg xl:text-xl 2xl:text-2xl font-bold font-rajdhani"
+                >{{ formatUnit(protocol.upload) }}</span
+              >
             </div>
 
-            <p class="text-secondary font-rajdhani font-semibold sm:text-xs md:text-sm lg:text-base xl:text-lg 2xl:text-xl">Upload</p>
+            <p
+              class="text-secondary font-rajdhani font-semibold sm:text-xs md:text-sm lg:text-base xl:text-lg 2xl:text-xl"
+            >
+              Upload
+            </p>
           </div>
         </div>
       </div>
@@ -111,17 +138,23 @@
         </p>
         <div class="w-full h-[70%] flex flex-row items-center justify-evenly">
           <div
-            class="min-w-[43%] w-fit h-full  bg-base-100 bg-opacity-5 rounded-xl flex flex-col justify-center items-center px-2"
+            class="min-w-[43%] w-fit h-full bg-base-100 bg-opacity-5 rounded-xl flex flex-col justify-center items-center px-2"
           >
             <div class="inline-block">
-              <span class="text-info sm:text-lg md:text-xl lg:text-2xl xl:text-3xl 2xl:text-4xl font-semibold font-rajdhani">{{
-                formatValue(host.download)
-              }}</span>
-              <span class="text-info sm:text-sm md:text-base lg:text-lg xl:text-xl 2xl:text-2xl font-bold font-rajdhani">{{
-                formatUnit(host.download)
-              }}</span>
+              <span
+                class="text-info sm:text-lg md:text-xl lg:text-2xl xl:text-3xl 2xl:text-4xl font-semibold font-rajdhani"
+                >{{ formatValue(host.download) }}</span
+              >
+              <span
+                class="text-info sm:text-sm md:text-base lg:text-lg xl:text-xl 2xl:text-2xl font-bold font-rajdhani"
+                >{{ formatUnit(host.download) }}</span
+              >
             </div>
-            <p class="text-info font-rajdhani font-semibold sm:text-xs md:text-sm lg:text-base xl:text-lg 2xl:text-xl">Download</p>
+            <p
+              class="text-info font-rajdhani font-semibold sm:text-xs md:text-sm lg:text-base xl:text-lg 2xl:text-xl"
+            >
+              Download
+            </p>
           </div>
           <div
             class="min-w-[43%] w-fit h-full bg-base-100 bg-opacity-5 rounded-xl flex flex-col justify-center items-center px-2"
@@ -131,11 +164,16 @@
                 class="text-secondary sm:text-lg md:text-xl lg:text-2xl xl:text-3xl 2xl:text-4xl font-semibold font-rajdhani"
                 >{{ formatValue(host.upload) }}</span
               >
-              <span class="text-secondary sm:text-sm md:text-base lg:text-lg xl:text-xl 2xl:text-2xl font-bold font-rajdhani">{{
-                formatUnit(host.upload)
-              }}</span>
+              <span
+                class="text-secondary sm:text-sm md:text-base lg:text-lg xl:text-xl 2xl:text-2xl font-bold font-rajdhani"
+                >{{ formatUnit(host.upload) }}</span
+              >
             </div>
-            <p class="text-secondary font-rajdhani font-semibold sm:text-xs md:text-sm lg:text-base xl:text-lg 2xl:text-xl">Upload</p>
+            <p
+              class="text-secondary font-rajdhani font-semibold sm:text-xs md:text-sm lg:text-base xl:text-lg 2xl:text-xl"
+            >
+              Upload
+            </p>
           </div>
         </div>
       </div>
