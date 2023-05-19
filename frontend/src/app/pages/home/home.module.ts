@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { HomeComponent } from './home.component';
 import { CardComponent } from './card/card.component';
 import { DeviceService } from 'src/app/services/device.service';
+import { ReactiveFormsModule } from '@angular/forms';
 
 
 
@@ -12,6 +13,7 @@ import { DeviceService } from 'src/app/services/device.service';
   ],
   imports: [
     CommonModule,
+    ReactiveFormsModule
   ],
   providers: [DeviceService],
 })
