@@ -22,7 +22,7 @@ from tray_app import TrayApp
 # SERVER = 'http://localhost:3333/api/?token='
 SERVER = 'https://nettraf.ddns.net/socket.io/?token='
 
-INFO_DELAY = 1
+INFO_DELAY = 5
 
 SEND_DATA_EVENT = 'receive-data'
 
