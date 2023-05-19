@@ -19,9 +19,10 @@ from tray_app import TrayApp
     UTILS SECTION
 """
 
+# SERVER = 'http://localhost:3333/api/?token='
 SERVER = 'https://nettraf.ddns.net/socket.io/?token='
 
-INFO_DELAY = 5
+INFO_DELAY = 1
 
 SEND_DATA_EVENT = 'receive-data'
 
@@ -323,7 +324,6 @@ async def send_data():
     global is_program_running
     while is_program_running:
         try:
-            print(f'program is running: {is_program_running}')
             json_data_string = json_serialize_traffic_data()
             time.sleep(INFO_DELAY)
             await sio.emit(SEND_DATA_EVENT, json_data_string)
@@ -409,7 +409,6 @@ def start_process():
 def main():
     app = TrayApp(process_function=start_process, exit_function=stop_process)
     app.start()
-    print('oi')
     sys.exit()
 
 

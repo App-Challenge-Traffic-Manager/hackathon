@@ -5,10 +5,10 @@ block_cipher = None
 
 
 a = Analysis(
-    ['src\\TraffOpti.py'],
+    ['src\\NETTRAF.py'],
     pathex=[],
     binaries=[],
-    datas=[],
+    datas=[('src\\\\favicon.ico', '.')],
     hiddenimports=[],
     hookspath=[],
     hooksconfig={},
@@ -28,7 +28,7 @@ exe = EXE(
     a.zipfiles,
     a.datas,
     [],
-    name='TraffOpti',
+    name='NETTRAF',
     debug=False,
     bootloader_ignore_signals=False,
     strip=False,
@@ -41,4 +41,5 @@ exe = EXE(
     target_arch=None,
     codesign_identity=None,
     entitlements_file=None,
+    icon=['favicon.ico'],
 )

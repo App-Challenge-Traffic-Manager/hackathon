@@ -1,7 +1,8 @@
+import os
 from pystray import Icon as icon, Menu as menu, MenuItem as item
 import threading
 import sys
-from PIL import Image, ImageDraw
+from PIL import Image
 import pyperclip
 from identity_service import get_identity
 
@@ -23,27 +24,18 @@ class TrayApp:
         )
 
     def create_image(self, width, height, color1, color2):
-        # Generate an image and draw a pattern
-        image = Image.new('RGB', (width, height), color1)
-        dc = ImageDraw.Draw(image)
-        dc.rectangle(
-            (width // 2, 0, width, height // 2),
-            fill=color2)
-        dc.rectangle(
-            (0, height // 2, width // 2, height),
-            fill=color2)
-
-        return image
+        favicon = os.path.join(os.path.dirname(
+            os.path.abspath(__file__)), 'favicon.ico')
+        image = Image.open(favicon)
+        return image.resize([width, height])
 
     def background_process(self):
         if self.process_function:
             self.process_function()
 
     def exit_action(self, icon, item):
-        print("Saindo")
         if self.exit_function:
             self.exit_function()
-        print("Parando TrayApp")
         icon.stop()
         sys.exit(0)
 
@@ -54,8 +46,6 @@ class TrayApp:
     def start(self):
         # Inicia o processo em segundo plano
         threading.Thread(target=self.background_process).start()
-        # self.background_process()
-        print("Iniciando TrayApp")
         self.myIcon.run()
 
     def stop(self):

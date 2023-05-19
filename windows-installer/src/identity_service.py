@@ -3,7 +3,6 @@ import json
 from datetime import datetime
 from pathlib import Path
 import os
-import sys
 
 # Obtém o caminho do arquivo JSON na pasta anterior aos arquivos deste script
 json_file_path = os.path.join(os.path.dirname(
@@ -23,7 +22,6 @@ def generate_token():
 
 def check_if_identity_exists():
     identity_file = Path(json_file_path)
-    print(identity_file)
     if identity_file.is_file():
         return True
     else:
