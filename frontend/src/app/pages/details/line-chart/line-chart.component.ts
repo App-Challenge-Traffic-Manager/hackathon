@@ -1,6 +1,6 @@
 import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { Chart } from 'chart.js';
-import 'chart.js/auto'
+import 'chart.js/auto';
 // import { IChartData } from '../details.component';
 //
 @Component({
@@ -27,18 +27,20 @@ export class LineChartComponent implements OnChanges {
           {
             label: 'Download',
             data: this.data.download,
-            borderColor: '#3cba9f',
+            borderColor: '#009DE0',
             fill: false,
+
           },
           {
             label: 'Upload',
             data: this.data.upload,
-            borderColor: '#ffcc00',
+            borderColor: '#BED733',
             fill: false,
           },
         ],
       },
       options: {
+        responsive: true,
         aspectRatio: 2.5,
         scales: {
           y: {
@@ -46,6 +48,22 @@ export class LineChartComponent implements OnChanges {
             title: {
               display: true,
               text: 'Speed (bytes/s)',
+              color: 'white',
+            },
+            ticks: {
+              color: 'white',
+            },
+          },
+          x: {
+            ticks: {
+              color: 'white',
+            },
+          },
+        },
+        plugins: {
+          legend: {
+            labels: {
+              color: 'white',
             },
           },
         },
