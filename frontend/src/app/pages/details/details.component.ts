@@ -1,62 +1,39 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { IApplication } from 'src/app/interfaces/application.interface';
+import { IHostTraffic } from 'src/app/interfaces/host-traffic.interface';
+import { IProtocolTraffic } from 'src/app/interfaces/protocol-traffic.interface';
+import { ApplicationService } from 'src/app/services/application.service';
 
 @Component({
   selector: 'app-details',
   templateUrl: './details.component.html',
   styleUrls: ['./details.component.scss'],
 })
-export class DetailsComponent {
-  public date: String = '18/05/2023';
-  public uptime: String = '02:14';
-  deviceId!: string;
-  protocol_traffic = [
-    {
-      name: 'HTTP',
-      download: '202.20KB',
-      upload: '00.02KB',
-    },
-    {
-      name: 'SSSSSSSSSSSSSSSSSSSSSSSSSSSSSS',
-      download: '202.20KB',
-      upload: '00.02KB',
-    },
-    {
-      name: 'TCP',
-      download: '202.20KB',
-      upload: '00.02KB',
-    },
-  ];
-  host_traffic = [
-    {
-      name: '192.168.10.101',
-      download: '202.20KB',
-      upload: '00.02KB',
-    },
-    {
-      name: 'Specific Hosts',
-      download: '202.20KB',
-      upload: '00.02KB',
-    },
-    {
-      name: 'Specific Ports',
-      download: '202.20KB',
-      upload: '00.02KB',
-    },
-  ];
+export class DetailsComponent implements OnInit {
+  date!: String;
+  uptime!: String;
+  protocol_traffic!: IProtocolTraffic[];
+  host_traffic!: IHostTraffic[];
 
   constructor(
     private readonly routeActiv: ActivatedRoute,
-    private readonly router: Router
+    private readonly router: Router,
+    private readonly applicationService: ApplicationService
   ) {}
 
-  ngOnInit() {
-    this.routeActiv.queryParams.subscribe(params => {this.deviceId = params['app']})
-    console.log(this.deviceId);
-  }
-
-  navigate() {
-    this.router.navigate(['/home']);
+  ngOnInit(): void {
+    this.routeActiv.queryParams.subscribe((params) => {
+      console.log(params['app']);
+    });
+    this.applicationService
+      .fetchApplication('68ee00d3-af27-429d-9142-fc195faae2d5')
+      .subscribe((application: IApplication) => {
+        this.protocol_traffic = application.protocol_traffics;
+        this.host_traffic = application.host_traffics;
+        this.date = application.started_at.split(',')[0];
+        this.uptime = application.started_at.split(',')[1].replace(' ', '');
+      });
   }
 
   public regex = new RegExp('^([0-9])+(.)([0-9])+([A-z])([A-z])$');
@@ -76,5 +53,9 @@ export class DetailsComponent {
     return this.testRegex(text)
       ? text.substring(text.length - 2, text.length)
       : text.substring(text.length - 1, text.length);
+  }
+
+  navigate() {
+    this.router.navigate(['/home']);
   }
 }

@@ -1,5 +1,9 @@
+import { IHostTraffic } from './host-traffic.interface';
+import { IProtocolTraffic } from './protocol-traffic.interface';
+
 export interface IApplication {
   id: string;
+  pid: number;
   name: string;
   upload: string;
   download: string;
@@ -10,4 +14,6 @@ export interface IApplication {
   deviceId: string | null;
   createdAt: Date;
   updatedAt: Date;
+  protocol_traffics: IProtocolTraffic[];
+  host_traffics: IHostTraffic[];
 }
