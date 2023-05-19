@@ -7,4 +7,6 @@ export interface IDevice {
   createdAt: Date;
   updatedAt: Date;
   apps: IApplication[];
+  totalDownload: string;
+  totalUpload: string;
 }

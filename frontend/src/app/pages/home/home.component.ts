@@ -13,7 +13,10 @@ export class HomeComponent implements OnInit {
   myForm: FormGroup;
   devices: IDevice[] = [];
 
-  constructor(private readonly deviceService: DeviceService, private readonly router:Router) {
+  constructor(
+    private readonly deviceService: DeviceService,
+    private readonly router: Router
+  ) {
     this.myForm = new FormGroup({
       deviceId: new FormControl('', Validators.required),
     });
@@ -34,7 +37,9 @@ export class HomeComponent implements OnInit {
     window.location.reload();
   }
 
-  navigateToGit(){
-    window.open('https://github.com/App-Challenge-Traffic-Manager/hackathon/releases');
+  navigateToGit() {
+    window.open(
+      'https://github.com/App-Challenge-Traffic-Manager/hackathon/releases'
+    );
   }
 }

@@ -67,7 +67,7 @@
       <div
         class="m-2 flex flex-row overflow-x-scroll scrollbar-thin scrollbar-thumb-neutral scrollbar-track-rounded-full scrollbar-thumb-rounded-full"
       >
-        <app-card-info [download]="'400.00MB'" upload="30.00MB" ></app-card-info>
+        <app-card-info [download]="device.totalDownload" [upload]="device.totalUpload" ></app-card-info>
         <app-card *ngFor="let app of device.apps" [app]="app"></app-card>
       </div>
     </div>

@@ -1,9 +1,7 @@
-import { Component, Input, NgZone, OnDestroy, OnInit } from '@angular/core';
-import { NavigationEnd, Router } from '@angular/router';
+import { Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { IApplication } from 'src/app/interfaces/application.interface';
-import { RoutingService } from 'src/app/routing.service';
-import { ApplicationService } from 'src/app/services/application.service';
 import { SocketService } from 'src/app/services/socket.service';
 export interface IMessage {
   upload: string;
@@ -26,10 +24,7 @@ export class CardComponent implements OnInit, OnDestroy {
   download!: string;
   upload!: string;
 
-  testeObs!: any;
-
   private dataSubscription!: Subscription;
-  private routerSubscription!: Subscription;
 
   public regex = new RegExp('^([0-9])+(.)([0-9])+([A-z])([A-z])$');
 
@@ -54,9 +49,7 @@ export class CardComponent implements OnInit, OnDestroy {
 
   constructor(
     private readonly router: Router,
-    private readonly applicationService: ApplicationService,
-    private readonly socketService: SocketService,
-    private readonly ngZone: NgZone
+    private readonly socketService: SocketService
   ) {}
 
   ngOnDestroy(): void {
@@ -64,52 +57,17 @@ export class CardComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.startLoopFunction();
-
-    this.applicationService
-      .fetchApplication(this.app.id.toString())
-      .subscribe((application: IApplication) => {
-        this.id = application.id;
-        this.name = application.name;
-        this.pid = application.pid;
-        this.extractFromMessage({
-          upload: application.upload,
-          download: application.download,
-        });
-      });
-
+    this.id = this.app.id;
+    this.name = this.app.name;
+    this.pid = this.app.pid;
+    this.download = this.app.download;
+    this.upload = this.app.upload;
     this.dataSubscription = this.socketService
       .listen(`application/${this.app.id}/size`)
-      .subscribe((data: IMessage) => {
+      .subscribe((data: any) => {
         this.extractFromMessage(data);
       });
   }
-
-  startLoopFunction() {
-    this.ngZone.runOutsideAngular(() => {
-      const intervalId = setInterval(() => {
-        this.applicationService
-          .fetchApplication(this.app.id.toString())
-          .subscribe((application: IApplication) => {
-            this.id = application.id;
-            this.name = application.name;
-            this.pid = application.pid;
-            this.extractFromMessage({
-              upload: application.upload,
-              download: application.download,
-            });
-          });
-      }, 1000);
-
-      this.ngZone.run(() => {
-        this.stopLoopFunction = () => {
-          clearInterval(intervalId);
-        };
-      });
-    });
-  }
-
-  stopLoopFunction() {}
 
   navigate() {
     this.router.navigate(['/details'], { queryParams: { app: this.app.id } });
