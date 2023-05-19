@@ -39,12 +39,14 @@ export class CardComponent implements OnInit, OnDestroy {
   }
 
   formatValue(text: string) {
+    if (!text) return '';
     return this.testRegex(text)
       ? text.substring(0, text.length - 2)
       : text.substring(0, text.length - 1);
   }
 
   formatUnit(text: string) {
+    if (!text) return '';
     return this.testRegex(text)
       ? text.substring(text.length - 2, text.length)
       : text.substring(text.length - 1, text.length);

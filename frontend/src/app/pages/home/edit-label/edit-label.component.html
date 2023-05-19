@@ -1,0 +1,10 @@
+<div class="w-[350px]">
+  <input
+    type="text"
+    (keydown.enter)="submitLabel()"
+    (blur)="submitLabel()"
+    placeholder="{{ placeholder }}"
+    [(ngModel)]="input"
+    class="w-full bg-transparent text-base-100 font-bold text-xl placeholder:text-base-100 placeholder:font-rajdhani placeholder:text-[1.35rem] placeholder:font-bold overflow-visible"
+  />
+</div>

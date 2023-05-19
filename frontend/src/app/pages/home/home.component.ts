@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { IDevice } from 'src/app/interfaces/device.interface';
 import { DeviceService } from 'src/app/services/device.service';
 
@@ -12,7 +13,7 @@ export class HomeComponent implements OnInit {
   myForm: FormGroup;
   devices: IDevice[] = [];
 
-  constructor(private readonly deviceService: DeviceService) {
+  constructor(private readonly deviceService: DeviceService, private readonly router:Router) {
     this.myForm = new FormGroup({
       deviceId: new FormControl('', Validators.required),
     });
@@ -31,5 +32,9 @@ export class HomeComponent implements OnInit {
       );
     }
     window.location.reload();
+  }
+
+  navigateToGit(){
+    window.open('https://github.com/App-Challenge-Traffic-Manager/hackathon/releases');
   }
 }

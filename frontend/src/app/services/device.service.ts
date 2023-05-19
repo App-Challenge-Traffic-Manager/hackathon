@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { Injectable, ɵɵngDeclareClassMetadata } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { IDevice } from '../interfaces/device.interface';
@@ -49,5 +49,11 @@ export class DeviceService {
       ','
     )}`;
     return this.http.get<IDevice[]>(url);
+  }
+
+  updateName(token:string, name:string): Observable<IDevice>{
+    const data = {name: name}
+    const url = `${environment.API_URL}/devices/${token}/by-token`;
+    return this.http.patch<IDevice>(url, data);
   }
 }

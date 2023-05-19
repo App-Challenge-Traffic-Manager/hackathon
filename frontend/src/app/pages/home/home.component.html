@@ -3,6 +3,7 @@
     <div class="form-control w-10/12 flex flex-row">
       <button
         class="btn h-10 w-10 border-info bg-neutral stroke-info hover:bg-info btn-sm align-middle content-center text-3xl text-base-100 font-extrabold"
+        (click)="navigateToGit()"
       >
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -54,10 +55,19 @@
   </div>
   <div class="flex flex-col items-center justify-center h-full w-10/12">
     <div *ngFor="let device of devices" class="m-2 flex flex-col w-full h-2/4">
-      <h1 class="ml-2 text-base-100 font-semibold text-xl">
-        Dispositivo: {{ device.name || device.token }}
-      </h1>
-      <div class="m-2 flex flex-row overflow-x-scroll scrollbar-thin scrollbar-thumb-neutral scrollbar-track-rounded-full scrollbar-thumb-rounded-full">
+      <div class="w-full flex justify-start flex-row">
+        <h1 class="ml-2 text-base-100 font-semibold text-xl mr-2">
+          Dispositivo:
+        </h1>
+        <app-edit-label
+          [placeholder]="device.name || device.token"
+          [token]="device.token"
+        ></app-edit-label>
+      </div>
+      <div
+        class="m-2 flex flex-row overflow-x-scroll scrollbar-thin scrollbar-thumb-neutral scrollbar-track-rounded-full scrollbar-thumb-rounded-full"
+      >
+        <app-card-info [download]="'400.00MB'" upload="30.00MB" ></app-card-info>
         <app-card *ngFor="let app of device.apps" [app]="app"></app-card>
       </div>
     </div>
