@@ -22,12 +22,18 @@ if (!process.env['APP_TOKEN_STORAGE_KEY']) {
   process.exit(-1);
 }
 
+if (!process.env['SOCKET_URL']) {
+  console.error('All the required environment variables were not provided!');
+  process.exit(-1);
+}
+
 // we have access to our environment variables
 // in the process.env object thanks to dotenv
 const environmentFileContent = `
 export const environment = {
    production: ${isProduction},
    API_URL: "${process.env['API_URL']}",
+   SOCKET_URL: "${process.env['SOCKET_URL']}",
    APP_TOKEN_STORAGE_KEY: "${process.env['APP_TOKEN_STORAGE_KEY']}"
 };
 `;

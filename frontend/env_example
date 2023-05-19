@@ -1,3 +1,4 @@
 API_URL=https://nettraf.ddns.net/api
+SOCKET_URL=https://nettraf.ddns.net/
 
 APP_TOKEN_STORAGE_KEY=this-app-tokens
