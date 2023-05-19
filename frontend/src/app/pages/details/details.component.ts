@@ -1,20 +1,27 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Subscription } from 'rxjs';
 import { IApplication } from 'src/app/interfaces/application.interface';
 import { IHostTraffic } from 'src/app/interfaces/host-traffic.interface';
 import { IProtocolTraffic } from 'src/app/interfaces/protocol-traffic.interface';
 import { ApplicationService } from 'src/app/services/application.service';
 import { SocketService } from 'src/app/services/socket.service';
 
-interface ISpeed {
+export interface ISpeed {
   value: number;
   unit: string;
   timestamp?: Date;
 }
 
-interface IMessage {
+export interface IMessage {
   upload: number;
   download: number;
+}
+
+export interface IChartData {
+  labels: (string | undefined)[];
+  download: number[];
+  upload: number[];
 }
 
 @Component({
@@ -22,17 +29,19 @@ interface IMessage {
   templateUrl: './details.component.html',
   styleUrls: ['./details.component.scss'],
 })
-export class DetailsComponent implements OnInit {
+export class DetailsComponent implements OnInit, OnDestroy {
   id!: String;
   name!: String;
   pid!: number;
   date!: String;
   uptime!: String;
-  protocol_traffic!: IProtocolTraffic[];
-  host_traffic!: IHostTraffic[];
+  public protocol_traffic: IProtocolTraffic[] = [];
+  public host_traffic: IHostTraffic[] = [];
 
   download: ISpeed[] = [];
   upload: ISpeed[] = [];
+
+  private dataSubscription!: Subscription;
 
   constructor(
     private readonly routeActiv: ActivatedRoute,
@@ -40,6 +49,10 @@ export class DetailsComponent implements OnInit {
     private readonly applicationService: ApplicationService,
     private readonly socketService: SocketService
   ) {}
+
+  ngOnDestroy(): void {
+    this.dataSubscription.unsubscribe();
+  }
 
   ngOnInit(): void {
     this.routeActiv.queryParams.subscribe((params) => {
@@ -54,9 +67,13 @@ export class DetailsComponent implements OnInit {
         this.uptime = application.started_at.split(',')[1].replace(' ', '');
         this.name = application.name;
         this.pid = application.pid;
+        this.extractFromMessage({
+          upload: application.upload_speed,
+          download: application.download_speed,
+        });
       });
 
-    this.socketService
+    this.dataSubscription = this.socketService
       .listen(`application/${this.id}/speed`)
       .subscribe((data: IMessage) => {
         this.extractFromMessage(data);
@@ -98,5 +115,15 @@ export class DetailsComponent implements OnInit {
 
   navigate() {
     this.router.navigate(['/home']);
+  }
+
+  get data(): IChartData {
+    return {
+      labels: this.download.map((speed) =>
+        speed.timestamp?.toLocaleTimeString()
+      ),
+      download: this.download.map((speed) => speed.value),
+      upload: this.upload.map((speed) => speed.value),
+    };
   }
 }
