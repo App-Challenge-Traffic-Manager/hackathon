@@ -1,5 +1,7 @@
 import { Component, Input } from '@angular/core';
+import { Router } from '@angular/router';
 import { IApplication } from 'src/app/interfaces/application.interface';
+import { RoutingService } from 'src/app/routing.service';
 
 @Component({
   selector: 'app-card',
@@ -29,5 +31,13 @@ export class CardComponent {
       : text.substring(text.length - 1, text.length);
   }
 
-  constructor() {}
+  constructor(private readonly router: Router, private readonly routingService:RoutingService) {}
+
+  navigate() {
+    this.router.navigate(['/details'], { queryParams: { app: this.app.id }});
+  }
+
+  onClick(){
+    this.navigate();
+  }
 }
